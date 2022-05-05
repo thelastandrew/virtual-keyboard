@@ -1,0 +1,74 @@
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 40px;
+  text-transform: uppercase;
+  color: #386135;
+  margin: 10px 0;
+}
+
+.keyboard-body {
+  max-width: 752px;
+  margin: 0 auto;
+  padding: 5px;
+  background-color: #172117;
+  border-radius: 3px;
+}
+
+.keyboard-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 5px;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+
+.keyboard-key {
+  color: white;
+  font-size: 18px;
+  background-color: #385238;
+  height: 40px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 6%;
+  transition: 0.2s;
+
+  &:active,
+  &.active {
+    background-color: #486b48;
+  }
+}
+
+.backspace,
+.capslock,
+.left-shift {
+  width: 100px;
+  background-color: #293d29;
+}
+
+.tab,
+.del {
+  width: 50px;
+  background-color: #293d29;
+}
