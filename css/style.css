@@ -24,8 +24,12 @@ body {
   margin: 10px 0;
 }
 
+.textarea {
+  padding: 5px;
+}
+
 .keyboard-body {
-  max-width: 752px;
+  max-width: 762px;
   margin: 0 auto;
   padding: 5px;
   background-color: #172117;
@@ -60,13 +64,17 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 6%;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
+  width: 40px;
+  -webkit-transition: ease-in 0.2s;
+  transition: ease-in 0.2s;
+}
+
+.keyboard-key:hover {
+  background-color: #486448;
 }
 
 .keyboard-key:active, .keyboard-key.active {
-  background-color: #486b48;
+  background-color: #83bd83;
 }
 
 .backspace,
