@@ -39,7 +39,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  column-gap: 5px;
+  column-gap: 8px;
 
   &:not(:last-child) {
     margin-bottom: 8px;
@@ -56,7 +56,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
   width: 40px;
-  transition: ease-in 0.2s;
+  transition: ease 0.1s;
 
   &:hover {
     background-color: #486448;
@@ -68,15 +68,20 @@ body {
   }
 }
 
-.backspace,
-.capslock,
-.left-shift {
+.wide {
   width: 100px;
   background-color: #293d29;
 }
 
-.tab,
-.del {
+.med-wide {
   width: 50px;
   background-color: #293d29;
+}
+
+.space {
+  width: 358px;
+}
+
+.hidden {
+  display: none;
 }

@@ -47,8 +47,8 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-column-gap: 5px;
-          column-gap: 5px;
+  -webkit-column-gap: 8px;
+          column-gap: 8px;
 }
 
 .keyboard-row:not(:last-child) {
@@ -65,8 +65,8 @@ body {
   border-radius: 5px;
   cursor: pointer;
   width: 40px;
-  -webkit-transition: ease-in 0.2s;
-  transition: ease-in 0.2s;
+  -webkit-transition: ease 0.1s;
+  transition: ease 0.1s;
 }
 
 .keyboard-key:hover {
@@ -77,16 +77,21 @@ body {
   background-color: #83bd83;
 }
 
-.backspace,
-.capslock,
-.left-shift {
+.wide {
   width: 100px;
   background-color: #293d29;
 }
 
-.tab,
-.del {
+.med-wide {
   width: 50px;
   background-color: #293d29;
+}
+
+.space {
+  width: 358px;
+}
+
+.hidden {
+  display: none;
 }
 /*# sourceMappingURL=style.css.map */
