@@ -94,4 +94,24 @@ body {
 .hidden {
   display: none;
 }
+
+.caps {
+  position: relative;
+}
+
+.caps::after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.caps.pressed::after {
+  background-color: #09ff09;
+}
 /*# sourceMappingURL=style.css.map */

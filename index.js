@@ -108,20 +108,20 @@ const keyboard = {
         keyElement.classList.add('keyboard-key');
         switch (key) {
           case 'backspace':
-            keyElement.classList.add('icon-backspace', 'wide');
+            keyElement.classList.add('icon-backspace', 'backspace', 'wide');
             break;
           case 'tab':
-            keyElement.classList.add('icon-tab', 'med-wide');
+            keyElement.classList.add('icon-tab', 'tab', 'med-wide');
             break;
           case 'del':
             keyElement.classList.add('del');
             keyElement.innerHTML = 'Del';
             break;
           case 'caps':
-            keyElement.classList.add('icon-caps', 'med-wide');
+            keyElement.classList.add('icon-caps', 'caps', 'med-wide');
             break;
           case 'enter':
-            keyElement.classList.add('icon-return', 'wide');
+            keyElement.classList.add('icon-return', 'enter', 'wide');
             break;
           case 'shift-l':
             keyElement.classList.add('shift-l', 'wide');
@@ -151,16 +151,16 @@ const keyboard = {
             keyElement.classList.add('icon-space', 'space');
             break;
           case 'up':
-            keyElement.classList.add('icon-up');
+            keyElement.classList.add('icon-up', 'up');
             break;
           case 'left':
-            keyElement.classList.add('icon-left');
+            keyElement.classList.add('icon-left', 'left');
             break;
           case 'down':
-            keyElement.classList.add('icon-down');
+            keyElement.classList.add('icon-down', 'down');
             break;
           case 'right':
-            keyElement.classList.add('icon-right');
+            keyElement.classList.add('icon-right', 'right');
             break;
           default:
             keyElement.innerHTML = `<span class="ru hidden">
