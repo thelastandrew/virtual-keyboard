@@ -24,7 +24,7 @@ body {
   margin: 10px 0;
 }
 
-.textarea {
+textarea {
   padding: 5px;
 }
 
@@ -70,7 +70,7 @@ body {
 }
 
 .keyboard-key:hover {
-  background-color: #486448;
+  background-color: #678867;
 }
 
 .keyboard-key:active, .keyboard-key.active {

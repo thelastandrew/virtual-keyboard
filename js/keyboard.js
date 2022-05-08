@@ -1,102 +1,80 @@
-const main = document.createElement('main');
-main.classList.add('main');
-document.body.append(main);
-
-const title = document.createElement('h1');
-title.classList.add('title');
-title.innerText = 'Virtual keyboard';
-main.append(title);
-
-const textarea = document.createElement('textarea');
-textarea.classList.add('textarea');
-textarea.id = 'textarea';
-textarea.setAttribute('cols', '100');
-textarea.setAttribute('rows', '20');
-main.append(textarea);
-
-const keyboard = {
-  elements: {
-    keyboardBody: null,
-    keyboardRow: null,
-    keys: [],
-  },
-
-  properties: {
-    lang: null, // 'en' or 'ru'
-    isCaps: null, // boolean
-  },
+class Keyboard {
+  constructor(elements) {
+    this.keyboardBody = elements.keyboardBody;
+    this.keyboardRow = elements.keyboardRow;
+    this.keyboardRows = elements.keyboardRows;
+    this.keys = elements.keys;
+  }
 
   init() {
-    this.elements.keyboardBody = document.createElement('div');
-    this.elements.keyboardBody.classList.add('keyboard-body');
+    this.keyboardBody = document.createElement('div');
+    this.keyboardBody.classList.add('keyboard-body');
 
-    for (let i = 0; i < 5; i++) {
-      this.elements.keyboardRow = document.createElement('div');
-      this.elements.keyboardRow.classList.add('keyboard-row');
-      this.elements.keyboardBody.append(this.elements.keyboardRow);
+    for (let i = 0; i < 5; i += 1) {
+      this.keyboardRow = document.createElement('div');
+      this.keyboardRow.classList.add('keyboard-row');
+      this.keyboardBody.append(this.keyboardRow);
+      this.keyboardRows.push(this.keyboardRow);
     }
-    main.append(this.elements.keyboardBody);
     this.createKeys();
-    this.elements.keys =
-      this.elements.keyboardBody.querySelectorAll('.keyboard-key');
-  },
+    this.keys = this.keyboardBody.querySelectorAll('.keyboard-key');
+    return this.keyboardBody;
+  }
 
   createKeys() {
-    //prettier-ignore
+    // prettier-ignore
     const keysEn = [
-      ['`','1','2','3','4','5','6','7','8','9','0','-','=','backspace'],
-      ['tab','q','w','e','r','t','y','u','i','o','p','[',']','\\','del'],
-      ['caps','a','s','d','f','g','h','j','k','l',';','\'','enter'],
-      ['shift-l','z','x','c','v','b','n','m',',','.','/','up','shift-r'],
-      ['ctrl-l','alt-l','space','alt-r','left','down','right','ctrl-r'],
+      ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'backspace'],
+      ['tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'del'],
+      ['caps', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'enter'],
+      ['shift-l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'up', 'shift-r'],
+      ['ctrl-l', 'alt-l', 'space', 'alt-r', 'left', 'down', 'right', 'ctrl-r'],
     ];
 
-    //prettier-ignore
+    // prettier-ignore
     const keysEnCaps = [
-      ['`','1','2','3','4','5','6','7','8','9','0','-','=','backspace'],
-      ['tab','Q','W','E','R','T','Y','U','I','O','P','[',']','\\','del'],
-      ['caps','A','S','D','F','G','H','J','K','L',';','\'','enter'],
-      ['shift-l','Z','X','C','V','B','N','M',',','.','/','up','shift-r'],
-      ['ctrl-l','alt-l','space','alt-r','left','down','right','ctrl-r'],
+      ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'backspace'],
+      ['tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\', 'del'],
+      ['caps', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'enter'],
+      ['shift-l', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'up', 'shift-r'],
+      ['ctrl-l', 'alt-l', 'space', 'alt-r', 'left', 'down', 'right', 'ctrl-r'],
     ];
 
-    //prettier-ignore
+    // prettier-ignore
     const keysEnShifted = [
-      ['~','!','@','#','$','%','^','&','*','(',')','_','+','backspace'],
-      ['tab','Q','W','E','R','T','Y','U','I','O','P','{','}','|','del'],
-      ['caps','A','S','D','F','G','H','J','K','L',':','"','enter'],
-      ['shift-l','Z','X','C','V','B','N','M','<','>','?','up','shift-r'],
-      ['ctrl-l','alt-l','space','alt-r','left','down','right','ctrl-r'],
+      ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'backspace'],
+      ['tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|', 'del'],
+      ['caps', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', 'enter'],
+      ['shift-l', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', 'up', 'shift-r'],
+      ['ctrl-l', 'alt-l', 'space', 'alt-r', 'left', 'down', 'right', 'ctrl-r'],
     ];
 
-    //prettier-ignore
+    // prettier-ignore
     const keysRu = [
-      ['ё','1','2','3','4','5','6','7','8','9','0','-','=','backspace'],
-      ['tab','й','ц','у','к','е','н','г','ш','щ','з','х','ъ','\\','del'],
-      ['caps','ф','ы','в','а','п','р','о','л','д','ж','э','enter'],
-      ['shift-l','я','ч','с','м','и','т','ь','б','ю','.','up','shift-r'],
-      ['ctrl-l','alt-l','space','alt-r','left','down','right','ctrl-r'],
+      ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'backspace'],
+      ['tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'del'],
+      ['caps', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'enter'],
+      ['shift-l', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'up', 'shift-r'],
+      ['ctrl-l', 'alt-l', 'space', 'alt-r', 'left', 'down', 'right', 'ctrl-r'],
     ];
 
-    //prettier-ignore
+    // prettier-ignore
     const keysRuCaps = [
-      ['Ё','1','2','3','4','5','6','7','8','9','0','-','=','backspace'],
-      ['tab','Й','Ц','У','К','Е','Н','Г','Ш','Щ','З','Х','Ъ','\\','del'],
-      ['caps','Ф','Ы','В','А','П','Р','О','Л','Д','Ж','Э','enter'],
-      ['shift-l','Я','Ч','С','М','И','Т','Ь','Б','Ю','.','up','shift-r'],
-      ['ctrl-l','alt-l','space','alt-r','left','down','right','ctrl-r'],
+      ['Ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'backspace'],
+      ['tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '\\', 'del'],
+      ['caps', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'enter'],
+      ['shift-l', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '.', 'up', 'shift-r'],
+      ['ctrl-l', 'alt-l', 'space', 'alt-r', 'left', 'down', 'right', 'ctrl-r'],
     ];
 
-    //prettier-ignore
+    // prettier-ignore
     const keysRuShifted = [
-      ['Ё','!','"','№',';','%',':','?','*','(',')','_','+','backspace'],
-      ['tab','Й','Ц','У','К','Е','Н','Г','Ш','Щ','З','Х','Ъ','/','del'],
-      ['caps','Ф','Ы','В','А','П','Р','О','Л','Д','Ж','Э','enter'],
-      ['shift-l','Я','Ч','С','М', 'И','Т','Ь','Б','Ю',',','up','shift-r'],
-      ['ctrl-l','alt-l','space','alt-r','left','down','right','ctrl-r'],
+      ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'backspace'],
+      ['tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '/', 'del'],
+      ['caps', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'enter'],
+      ['shift-l', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',', 'up', 'shift-r'],
+      ['ctrl-l', 'alt-l', 'space', 'alt-r', 'left', 'down', 'right', 'ctrl-r'],
     ];
-
-    const keyboardRows = document.querySelectorAll('.keyboard-row');
 
     keysEn.forEach((row, index) => {
       row.forEach((key, keyIndex) => {
@@ -187,7 +165,7 @@ const keyboard = {
             if (key.charCodeAt(0) >= 97 && key.charCodeAt(0) <= 122) {
               keyElement.setAttribute(
                 'data-code',
-                `Key${key.toLocaleUpperCase()}`
+                `Key${key.toLocaleUpperCase()}`,
               );
             } else if (Number(key) >= 0 && Number(key) <= 9) {
               keyElement.setAttribute('data-code', `Digit${key}`);
@@ -215,13 +193,13 @@ const keyboard = {
               keyElement.setAttribute('data-code', 'Slash');
             }
         }
-        keyboardRows[index].append(keyElement);
+        this.keyboardRows[index].append(keyElement);
       });
     });
-  },
+  }
 
   highLightKeys(event) {
-    this.elements.keys.forEach((element) => {
+    this.keys.forEach((element) => {
       if (element.dataset.code === event.code) {
         element.classList.add('active');
         if (event.code === 'Tab') {
@@ -229,10 +207,10 @@ const keyboard = {
         }
       }
     });
-  },
+  }
 
   lowLightKeys(event) {
-    this.elements.keys.forEach((element) => {
+    this.keys.forEach((element) => {
       if (element.dataset.code === event.code) {
         element.classList.remove('active');
         if (event.code === 'AltLeft' || event.code === 'AltRight') {
@@ -240,17 +218,14 @@ const keyboard = {
         }
       }
     });
-  },
-};
+  }
+}
 
-window.addEventListener('DOMContentLoaded', function () {
-  keyboard.init();
+const myKeyboard = new Keyboard({
+  keyboardBody: null,
+  keyboardRow: null,
+  keyboardRows: [],
+  keys: [],
 });
 
-window.addEventListener('keydown', (e) => {
-  keyboard.highLightKeys(e);
-});
-
-window.addEventListener('keyup', (e) => {
-  keyboard.lowLightKeys(e);
-});
+export default myKeyboard;
