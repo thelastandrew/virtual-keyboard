@@ -18,6 +18,7 @@ const keyboard = {
   elements: {
     keyboardBody: null,
     keyboardRow: null,
+    keys: [],
   },
 
   properties: {
@@ -36,6 +37,8 @@ const keyboard = {
     }
     main.append(this.elements.keyboardBody);
     this.createKeys();
+    this.elements.keys =
+      this.elements.keyboardBody.querySelectorAll('.keyboard-key');
   },
 
   createKeys() {
@@ -216,6 +219,28 @@ const keyboard = {
       });
     });
   },
+
+  highLightKeys(event) {
+    this.elements.keys.forEach((element) => {
+      if (element.dataset.code === event.code) {
+        element.classList.add('active');
+        if (event.code === 'Tab') {
+          event.preventDefault();
+        }
+      }
+    });
+  },
+
+  lowLightKeys(event) {
+    this.elements.keys.forEach((element) => {
+      if (element.dataset.code === event.code) {
+        element.classList.remove('active');
+        if (event.code === 'AltLeft' || event.code === 'AltRight') {
+          event.preventDefault();
+        }
+      }
+    });
+  },
 };
 
 window.addEventListener('DOMContentLoaded', function () {
@@ -223,5 +248,9 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 window.addEventListener('keydown', (e) => {
-  console.log(e);
+  keyboard.highLightKeys(e);
+});
+
+window.addEventListener('keyup', (e) => {
+  keyboard.lowLightKeys(e);
 });
