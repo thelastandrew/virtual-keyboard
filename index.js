@@ -18,18 +18,11 @@ const keyboard = {
   elements: {
     keyboardBody: null,
     keyboardRow: null,
-    keyboardKeys: null,
-    keys: [],
-  },
-
-  eventHandlers: {
-    oninput: null,
-    onclose: null,
   },
 
   properties: {
-    value: '',
-    capsLock: false,
+    lang: null, // 'en' or 'ru'
+    isCaps: null, // boolean
   },
 
   init() {
@@ -108,59 +101,74 @@ const keyboard = {
         keyElement.classList.add('keyboard-key');
         switch (key) {
           case 'backspace':
-            keyElement.classList.add('icon-backspace', 'backspace', 'wide');
+            keyElement.classList.add('icon-backspace', 'wide');
+            keyElement.setAttribute('data-code', 'Backspace');
             break;
           case 'tab':
-            keyElement.classList.add('icon-tab', 'tab', 'med-wide');
+            keyElement.classList.add('icon-tab', 'med-wide');
+            keyElement.setAttribute('data-code', 'Tab');
             break;
           case 'del':
-            keyElement.classList.add('del');
+            keyElement.setAttribute('data-code', 'Delete');
             keyElement.innerHTML = 'Del';
             break;
           case 'caps':
-            keyElement.classList.add('icon-caps', 'caps', 'med-wide');
+            keyElement.classList.add('icon-caps', 'med-wide', 'caps');
+            keyElement.setAttribute('data-code', 'CapsLock');
             break;
           case 'enter':
-            keyElement.classList.add('icon-return', 'enter', 'wide');
+            keyElement.classList.add('icon-return', 'wide');
+            keyElement.setAttribute('data-code', 'Enter');
             break;
           case 'shift-l':
-            keyElement.classList.add('shift-l', 'wide');
+            keyElement.classList.add('wide');
+            keyElement.setAttribute('data-code', 'ShiftLeft');
             keyElement.innerHTML = 'Shift';
             break;
           case 'shift-r':
-            keyElement.classList.add('shift-r', 'wide');
+            keyElement.classList.add('wide');
+            keyElement.setAttribute('data-code', 'ShiftRight');
             keyElement.innerHTML = 'Shift';
             break;
           case 'ctrl-l':
-            keyElement.classList.add('ctrl-l', 'med-wide');
+            keyElement.classList.add('med-wide');
+            keyElement.setAttribute('data-code', 'ControlLeft');
             keyElement.innerHTML = 'Ctrl';
             break;
           case 'ctrl-r':
-            keyElement.classList.add('ctrl-r', 'med-wide');
+            keyElement.classList.add('med-wide');
+            keyElement.setAttribute('data-code', 'ControlRight');
             keyElement.innerHTML = 'Ctrl';
             break;
           case 'alt-l':
-            keyElement.classList.add('alt-l', 'med-wide');
+            keyElement.classList.add('med-wide');
+            keyElement.setAttribute('data-code', 'AltLeft');
             keyElement.innerHTML = 'Alt';
             break;
           case 'alt-r':
-            keyElement.classList.add('alt-r', 'med-wide');
+            keyElement.classList.add('med-wide');
+            keyElement.setAttribute('data-code', 'AltRight');
             keyElement.innerHTML = 'Alt';
             break;
           case 'space':
             keyElement.classList.add('icon-space', 'space');
+            keyElement.setAttribute('data-code', 'Space');
             break;
           case 'up':
-            keyElement.classList.add('icon-up', 'up');
+            keyElement.classList.add('icon-up');
+            keyElement.setAttribute('data-code', 'ArrowUp');
             break;
           case 'left':
-            keyElement.classList.add('icon-left', 'left');
+            keyElement.classList.add('icon-left');
+            keyElement.setAttribute('data-code', 'ArrowLeft');
             break;
           case 'down':
-            keyElement.classList.add('icon-down', 'down');
+            keyElement.classList.add('icon-down');
+            keyElement.setAttribute('data-code', 'ArrowDown');
             break;
           case 'right':
-            keyElement.classList.add('icon-right', 'right');
+            keyElement.classList.add('icon-right');
+            keyElement.setAttribute('data-code', 'ArrowRight');
             break;
           default:
             keyElement.innerHTML = `<span class="ru hidden">
@@ -173,6 +181,36 @@ const keyboard = {
             <span class="upCase hidden">${keysEnCaps[index][keyIndex]}</span>
             <span class="shifted hidden">${keysEnShifted[index][keyIndex]}</span>
           </span>`;
+            if (key.charCodeAt(0) >= 97 && key.charCodeAt(0) <= 122) {
+              keyElement.setAttribute(
+                'data-code',
+                `Key${key.toLocaleUpperCase()}`
+              );
+            } else if (Number(key) >= 0 && Number(key) <= 9) {
+              keyElement.setAttribute('data-code', `Digit${key}`);
+            } else if (key === '`') {
+              keyElement.setAttribute('data-code', 'Backquote');
+            } else if (key === '-') {
+              keyElement.setAttribute('data-code', 'Minus');
+            } else if (key === '=') {
+              keyElement.setAttribute('data-code', 'Equal');
+            } else if (key === '[') {
+              keyElement.setAttribute('data-code', 'BracketLeft');
+            } else if (key === ']') {
+              keyElement.setAttribute('data-code', 'BracketRight');
+            } else if (key === '\\') {
+              keyElement.setAttribute('data-code', 'Backslash');
+            } else if (key === ';') {
+              keyElement.setAttribute('data-code', 'Semicolon');
+            } else if (key === "'") {
+              keyElement.setAttribute('data-code', 'Quote');
+            } else if (key === ',') {
+              keyElement.setAttribute('data-code', 'Comma');
+            } else if (key === '.') {
+              keyElement.setAttribute('data-code', 'Period');
+            } else if (key === '/') {
+              keyElement.setAttribute('data-code', 'Slash');
+            }
         }
         keyboardRows[index].append(keyElement);
       });
@@ -182,4 +220,8 @@ const keyboard = {
 
 window.addEventListener('DOMContentLoaded', function () {
   keyboard.init();
+});
+
+window.addEventListener('keydown', (e) => {
+  console.log(e);
 });
