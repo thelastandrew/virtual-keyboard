@@ -1,9 +1,13 @@
 class Keyboard {
-  constructor(elements) {
-    this.keyboardBody = elements.keyboardBody;
-    this.keyboardRow = elements.keyboardRow;
-    this.keyboardRows = elements.keyboardRows;
-    this.keys = elements.keys;
+  constructor(props) {
+    this.keyboardBody = props.keyboardBody;
+    this.keyboardRow = props.keyboardRow;
+    this.keyboardRows = props.keyboardRows;
+    this.keys = props.keys;
+    this.lang = props.lang;
+    this.isCapsOn = props.isCapsOn;
+    this.isShifted = props.isShifted;
+    this.mod = props.mod;
   }
 
   init() {
@@ -96,6 +100,9 @@ class Keyboard {
           case 'caps':
             keyElement.classList.add('icon-caps', 'med-wide', 'caps');
             keyElement.setAttribute('data-code', 'CapsLock');
+            keyElement.addEventListener('click', () => {
+              this.triggerCaps(keyElement);
+            });
             break;
           case 'enter':
             keyElement.classList.add('icon-return', 'wide');
@@ -152,15 +159,16 @@ class Keyboard {
             keyElement.setAttribute('data-code', 'ArrowRight');
             break;
           default:
+            keyElement.classList.add('mod');
             keyElement.innerHTML = `<span class="ru hidden">
-            <span class="lowCase hidden">${keysRu[index][keyIndex]}</span>
-            <span class="upCase hidden">${keysRuCaps[index][keyIndex]}</span>
-            <span class="shifted hidden">${keysRuShifted[index][keyIndex]}</span>
+            <span class="reg hidden">${keysRu[index][keyIndex]}</span>
+            <span class="isCapsOn hidden">${keysRuCaps[index][keyIndex]}</span>
+            <span class="isShifted hidden">${keysRuShifted[index][keyIndex]}</span>
           </span>
           <span class="en">
-            <span class="lowCase">${keysEn[index][keyIndex]}</span>
-            <span class="upCase hidden">${keysEnCaps[index][keyIndex]}</span>
-            <span class="shifted hidden">${keysEnShifted[index][keyIndex]}</span>
+            <span class="reg">${keysEn[index][keyIndex]}</span>
+            <span class="isCapsOn hidden">${keysEnCaps[index][keyIndex]}</span>
+            <span class="isShifted hidden">${keysEnShifted[index][keyIndex]}</span>
           </span>`;
             if (key.charCodeAt(0) >= 97 && key.charCodeAt(0) <= 122) {
               keyElement.setAttribute(
@@ -192,31 +200,50 @@ class Keyboard {
             } else if (key === '/') {
               keyElement.setAttribute('data-code', 'Slash');
             }
+            this.mod.push(keyElement);
         }
         this.keyboardRows[index].append(keyElement);
+      });
+
+      this.mod.forEach((element) => {
+        element.addEventListener('click', () => {
+          const symbol = element.innerText;
+          return symbol;
+        });
       });
     });
   }
 
   highLightKeys(event) {
     this.keys.forEach((element) => {
+      event.preventDefault();
       if (element.dataset.code === event.code) {
         element.classList.add('active');
-        if (event.code === 'Tab') {
-          event.preventDefault();
-        }
       }
     });
   }
 
   lowLightKeys(event) {
     this.keys.forEach((element) => {
+      event.preventDefault();
       if (element.dataset.code === event.code) {
         element.classList.remove('active');
-        if (event.code === 'AltLeft' || event.code === 'AltRight') {
-          event.preventDefault();
-        }
       }
+    });
+  }
+
+  triggerCaps(keyEl) {
+    keyEl.classList.toggle('pressed');
+    this.isCapsOn = !this.isCapsOn;
+
+    const curLang = this.lang === 'ru' ? 0 : 1;
+    this.mod.forEach((element) => {
+      element.children[`${curLang}`]
+        .querySelector('.reg')
+        .classList.toggle('hidden');
+      element.children[`${curLang}`]
+        .querySelector('.isCapsOn')
+        .classList.toggle('hidden');
     });
   }
 }
@@ -226,6 +253,10 @@ const myKeyboard = new Keyboard({
   keyboardRow: null,
   keyboardRows: [],
   keys: [],
+  mod: [],
+  lang: 'en',
+  isCapsOn: false,
+  isShifted: false,
 });
 
 export default myKeyboard;

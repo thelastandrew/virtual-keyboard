@@ -15,6 +15,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('keydown', (e) => {
   myKeyboard.highLightKeys(e);
+  if (e.key === 'CapsLock') {
+    myKeyboard.triggerCaps(document.querySelector('.caps'));
+  }
 });
 
 window.addEventListener('keyup', (e) => {
