@@ -109,14 +109,26 @@ class Keyboard {
             keyElement.setAttribute('data-code', 'Enter');
             break;
           case 'shift-l':
-            keyElement.classList.add('wide');
+            keyElement.classList.add('wide', 'shift-l');
             keyElement.setAttribute('data-code', 'ShiftLeft');
             keyElement.innerHTML = 'Shift';
+            keyElement.addEventListener('mousedown', () => {
+              this.triggerShift();
+            });
+            keyElement.addEventListener('mouseup', () => {
+              this.triggerShift();
+            });
             break;
           case 'shift-r':
-            keyElement.classList.add('wide');
+            keyElement.classList.add('wide', 'shift-r');
             keyElement.setAttribute('data-code', 'ShiftRight');
             keyElement.innerHTML = 'Shift';
+            keyElement.addEventListener('mousedown', () => {
+              this.triggerShift();
+            });
+            keyElement.addEventListener('mouseup', () => {
+              this.triggerShift();
+            });
             break;
           case 'ctrl-l':
             keyElement.classList.add('med-wide');
@@ -243,6 +255,38 @@ class Keyboard {
         .classList.toggle('hidden');
       element.children[`${curLang}`]
         .querySelector('.isCapsOn')
+        .classList.toggle('hidden');
+    });
+  }
+
+  triggerShift() {
+    this.isShifted = !this.isShifted;
+
+    const curLang = this.lang === 'ru' ? 0 : 1;
+    this.mod.forEach((element) => {
+      if (!this.isCapsOn) {
+        element.children[`${curLang}`]
+          .querySelector('.reg')
+          .classList.toggle('hidden');
+      }
+      if (this.isCapsOn) {
+        element.children[`${curLang}`]
+          .querySelector('.isCapsOn')
+          .classList.toggle('hidden');
+        /* eslint no-param-reassign: ["error", { "props": false }] */
+        let elInnerHTML = element.children[`${curLang}`].children[2].innerHTML;
+        if (elInnerHTML === elInnerHTML.toUpperCase()) {
+          // prettier-ignore
+          element.children[`${curLang}`].children[2].innerHTML = elInnerHTML.toLowerCase();
+          elInnerHTML = elInnerHTML.toLowerCase();
+        } else {
+          // prettier-ignore
+          element.children[`${curLang}`].children[2].innerHTML = elInnerHTML.toUpperCase();
+          elInnerHTML = elInnerHTML.toUpperCase();
+        }
+      }
+      element.children[`${curLang}`]
+        .querySelector('.isShifted')
         .classList.toggle('hidden');
     });
   }

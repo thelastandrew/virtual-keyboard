@@ -18,8 +18,20 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'CapsLock') {
     myKeyboard.triggerCaps(document.querySelector('.caps'));
   }
+  if (e.code === 'ShiftLeft') {
+    myKeyboard.triggerShift();
+  }
+  if (e.code === 'ShiftRight') {
+    myKeyboard.triggerShift();
+  }
 });
 
 window.addEventListener('keyup', (e) => {
   myKeyboard.lowLightKeys(e);
+  if (e.code === 'ShiftLeft') {
+    myKeyboard.triggerShift();
+  }
+  if (e.code === 'ShiftRight') {
+    myKeyboard.triggerShift();
+  }
 });
