@@ -228,7 +228,6 @@ class Keyboard {
 
   highLightKeys(event) {
     this.keys.forEach((element) => {
-      event.preventDefault();
       if (element.dataset.code === event.code) {
         element.classList.add('active');
       }
@@ -237,7 +236,6 @@ class Keyboard {
 
   lowLightKeys(event) {
     this.keys.forEach((element) => {
-      event.preventDefault();
       if (element.dataset.code === event.code) {
         element.classList.remove('active');
       }
@@ -247,21 +245,39 @@ class Keyboard {
   triggerCaps(keyEl) {
     keyEl.classList.toggle('pressed');
     this.isCapsOn = !this.isCapsOn;
+    this.checkCaps();
+  }
 
-    const curLang = this.lang === 'ru' ? 0 : 1;
-    this.mod.forEach((element) => {
-      element.children[`${curLang}`]
-        .querySelector('.reg')
-        .classList.toggle('hidden');
-      element.children[`${curLang}`]
-        .querySelector('.isCapsOn')
-        .classList.toggle('hidden');
-    });
+  checkCaps() {
+    if (this.isCapsOn) {
+      const curLang = this.lang === 'ru' ? 0 : 1;
+      this.mod.forEach((element) => {
+        element.children[`${curLang}`]
+          .querySelector('.reg')
+          .classList.add('hidden');
+        element.children[`${curLang}`]
+          .querySelector('.isCapsOn')
+          .classList.remove('hidden');
+      });
+    } else {
+      const curLang = this.lang === 'ru' ? 0 : 1;
+      this.mod.forEach((element) => {
+        element.children[`${curLang}`]
+          .querySelector('.reg')
+          .classList.remove('hidden');
+        element.children[`${curLang}`]
+          .querySelector('.isCapsOn')
+          .classList.add('hidden');
+      });
+    }
   }
 
   triggerShift() {
     this.isShifted = !this.isShifted;
+    this.checkShift();
+  }
 
+  checkShift() {
     const curLang = this.lang === 'ru' ? 0 : 1;
     this.mod.forEach((element) => {
       if (!this.isCapsOn) {
@@ -289,6 +305,22 @@ class Keyboard {
         .querySelector('.isShifted')
         .classList.toggle('hidden');
     });
+  }
+
+  switchLang() {
+    const curLang = this.lang === 'ru' ? 0 : 1;
+    const opLang = this.lang === 'ru' ? 1 : 0;
+
+    this.mod.forEach((element) => {
+      element.children[`${curLang}`].classList.add('hidden');
+      for (let i = 0; i < 3; i += 1) {
+        element.children[`${curLang}`].children[i].classList.add('hidden');
+      }
+      element.children[`${opLang}`].classList.remove('hidden');
+    });
+    this.lang = this.lang === 'en' ? 'ru' : 'en';
+    this.checkCaps();
+    this.checkShift();
   }
 }
 

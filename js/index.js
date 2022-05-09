@@ -20,9 +20,15 @@ window.addEventListener('keydown', (e) => {
   }
   if (e.code === 'ShiftLeft') {
     myKeyboard.triggerShift();
+    if (e.altKey) {
+      myKeyboard.switchLang();
+    }
   }
   if (e.code === 'ShiftRight') {
     myKeyboard.triggerShift();
+  }
+  if (e.code === 'AltLeft' && e.shiftKey) {
+    myKeyboard.switchLang();
   }
 });
 
