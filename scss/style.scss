@@ -8,11 +8,13 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .main {
   max-width: 900px;
-  margin: 0 auto;
   text-align: center;
 }
 
@@ -25,11 +27,12 @@ body {
 
 textarea {
   padding: 5px;
+  font-size: 16px;
 }
 
 .keyboard-body {
   max-width: 762px;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   padding: 5px;
   background-color: #172117;
   border-radius: 3px;

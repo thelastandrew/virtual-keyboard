@@ -21,7 +21,6 @@ class Keyboard {
       this.keyboardRows.push(this.keyboardRow);
     }
     this.createKeys();
-    this.keys = this.keyboardBody.querySelectorAll('.keyboard-key');
     return this.keyboardBody;
   }
 
@@ -86,11 +85,11 @@ class Keyboard {
         keyElement.classList.add('keyboard-key');
         switch (key) {
           case 'backspace':
-            keyElement.classList.add('icon-backspace', 'wide');
+            keyElement.classList.add('icon-backspace', 'wide', 'bcksp');
             keyElement.setAttribute('data-code', 'Backspace');
             break;
           case 'tab':
-            keyElement.classList.add('icon-tab', 'med-wide');
+            keyElement.classList.add('icon-tab', 'med-wide', 'tab');
             keyElement.setAttribute('data-code', 'Tab');
             break;
           case 'del':
@@ -105,7 +104,7 @@ class Keyboard {
             });
             break;
           case 'enter':
-            keyElement.classList.add('icon-return', 'wide');
+            keyElement.classList.add('icon-return', 'wide', 'enter');
             keyElement.setAttribute('data-code', 'Enter');
             break;
           case 'shift-l':
@@ -214,15 +213,31 @@ class Keyboard {
             }
             this.mod.push(keyElement);
         }
+        this.keys.push(keyElement);
         this.keyboardRows[index].append(keyElement);
       });
+    });
+  }
 
-      this.mod.forEach((element) => {
-        element.addEventListener('click', () => {
-          const symbol = element.innerText;
-          return symbol;
-        });
+  keyInput(input) {
+    this.mod.forEach((element) => {
+      element.addEventListener('click', () => {
+        input.value += element.innerText;
       });
+    });
+    document.querySelector('.bcksp').addEventListener('click', () => {
+      const curValue = input.value.split('');
+      curValue.pop();
+      input.value = curValue.join('');
+    });
+    document.querySelector('.tab').addEventListener('click', () => {
+      input.value += '    ';
+    });
+    document.querySelector('.enter').addEventListener('click', () => {
+      input.value += '\n';
+    });
+    document.querySelector('.space').addEventListener('click', () => {
+      input.value += ' ';
     });
   }
 
@@ -245,11 +260,11 @@ class Keyboard {
   triggerCaps(keyEl) {
     keyEl.classList.toggle('pressed');
     this.isCapsOn = !this.isCapsOn;
-    this.checkCaps();
+    this.checkCaps(this.isCapsOn);
   }
 
-  checkCaps() {
-    if (this.isCapsOn) {
+  checkCaps(isCaps) {
+    if (isCaps) {
       const curLang = this.lang === 'ru' ? 0 : 1;
       this.mod.forEach((element) => {
         element.children[`${curLang}`]
@@ -319,8 +334,14 @@ class Keyboard {
       element.children[`${opLang}`].classList.remove('hidden');
     });
     this.lang = this.lang === 'en' ? 'ru' : 'en';
-    this.checkCaps();
+    this.checkCaps(this.isCapsOn);
     this.checkShift();
+  }
+
+  checkLang(lng) {
+    if (lng !== this.lang) {
+      this.switchLang();
+    }
   }
 }
 

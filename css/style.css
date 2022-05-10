@@ -9,11 +9,18 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
 }
 
 .main {
   max-width: 900px;
-  margin: 0 auto;
   text-align: center;
 }
 
@@ -26,11 +33,12 @@ body {
 
 textarea {
   padding: 5px;
+  font-size: 16px;
 }
 
 .keyboard-body {
   max-width: 762px;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   padding: 5px;
   background-color: #172117;
   border-radius: 3px;

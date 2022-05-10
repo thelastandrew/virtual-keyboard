@@ -4,12 +4,12 @@ class Textarea {
     this.width = options.width;
     this.height = options.height;
     this.id = options.id;
-    this.value = options.value;
   }
 
   init() {
     this.textarea = document.createElement('textarea');
     this.textarea.classList.add('textarea');
+    this.textarea.setAttribute('autofocus', '');
     this.textarea.setAttribute('id', this.id);
     this.textarea.setAttribute('cols', this.width);
     this.textarea.setAttribute('rows', this.height);
@@ -19,10 +19,9 @@ class Textarea {
 
 const myTextarea = new Textarea({
   textarea: null,
-  width: 100,
-  height: 20,
+  width: 81,
+  height: 15,
   id: 'textarea',
-  value: '',
 });
 
 export default myTextarea;

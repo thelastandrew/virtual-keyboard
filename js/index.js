@@ -7,10 +7,38 @@ const main = document.createElement('main');
 main.classList.add('main');
 document.body.append(main);
 
+const p1 = document.createElement('p');
+p1.innerHTML = 'Клавиатура создана в операционной системе Windows';
+const p2 = document.createElement('p');
+p2.innerHTML = 'Перечлючение языка LeftShift+LeftAlt';
+
+const textarea = myTextarea.init();
+
+function setLocalStorage() {
+  localStorage.setItem('lang', myKeyboard.lang);
+  localStorage.setItem('isCaps', myKeyboard.isCapsOn.toString());
+}
+
+function getLocalStorage() {
+  if (localStorage.getItem('lang')) {
+    const lang = localStorage.getItem('lang');
+    let isCaps = false;
+    if (localStorage.getItem('isCaps') === 'true') {
+      isCaps = true;
+    }
+    myKeyboard.checkCaps(isCaps);
+    myKeyboard.checkLang(lang);
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   main.append(myTitle.init());
-  main.append(myTextarea.init());
+  main.append(textarea);
   main.append(myKeyboard.init());
+  getLocalStorage();
+  main.append(p1);
+  main.append(p2);
+  myKeyboard.keyInput(textarea);
 });
 
 window.addEventListener('keydown', (e) => {
@@ -41,3 +69,9 @@ window.addEventListener('keyup', (e) => {
     myKeyboard.triggerShift();
   }
 });
+
+window.addEventListener('click', () => {
+  textarea.focus();
+});
+
+window.addEventListener('beforeunload', setLocalStorage());
