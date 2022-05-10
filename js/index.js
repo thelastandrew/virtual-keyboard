@@ -58,6 +58,10 @@ window.addEventListener('keydown', (e) => {
   if (e.code === 'AltLeft' && e.shiftKey) {
     myKeyboard.switchLang();
   }
+  if (e.code === 'Tab') {
+    e.preventDefault();
+    textarea.value += '    ';
+  }
 });
 
 window.addEventListener('keyup', (e) => {
