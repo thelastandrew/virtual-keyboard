@@ -16,17 +16,11 @@ const textarea = myTextarea.init();
 
 function setLocalStorage() {
   localStorage.setItem('lang', myKeyboard.lang);
-  localStorage.setItem('isCaps', myKeyboard.isCapsOn.toString());
 }
 
 function getLocalStorage() {
   if (localStorage.getItem('lang')) {
     const lang = localStorage.getItem('lang');
-    let isCaps = false;
-    if (localStorage.getItem('isCaps') === 'true') {
-      isCaps = true;
-    }
-    myKeyboard.checkCaps(isCaps);
     myKeyboard.checkLang(lang);
   }
 }
@@ -78,4 +72,4 @@ window.addEventListener('click', () => {
   textarea.focus();
 });
 
-window.addEventListener('beforeunload', setLocalStorage());
+window.addEventListener('beforeunload', setLocalStorage);
