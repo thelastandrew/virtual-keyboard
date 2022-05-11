@@ -172,7 +172,7 @@ class Keyboard {
           default:
             keyElement.classList.add('mod');
             keyElement.innerHTML = `<span class="ru hidden">
-            <span class="reg hidden">${keysRu[index][keyIndex]}</span>
+            <span class="reg">${keysRu[index][keyIndex]}</span>
             <span class="isCapsOn hidden">${keysRuCaps[index][keyIndex]}</span>
             <span class="isShifted hidden">${keysRuShifted[index][keyIndex]}</span>
           </span>
@@ -264,27 +264,17 @@ class Keyboard {
   }
 
   checkCaps(isCaps) {
-    if (isCaps) {
-      const curLang = this.lang === 'ru' ? 0 : 1;
-      this.mod.forEach((element) => {
-        element.children[`${curLang}`]
-          .querySelector('.reg')
-          .classList.add('hidden');
-        element.children[`${curLang}`]
-          .querySelector('.isCapsOn')
-          .classList.remove('hidden');
-      });
-    } else {
-      const curLang = this.lang === 'ru' ? 0 : 1;
-      this.mod.forEach((element) => {
-        element.children[`${curLang}`]
-          .querySelector('.reg')
-          .classList.remove('hidden');
-        element.children[`${curLang}`]
-          .querySelector('.isCapsOn')
-          .classList.add('hidden');
-      });
+    this.mod.forEach((element) => {
+      for (let i = 0; i < 2; i += 1) {
+      if (isCaps) {
+        element.children[i].children[0].classList.add('hidden');
+        element.children[i].children[1].classList.remove('hidden');
+      } else {
+        element.children[i].children[0].classList.remove('hidden');
+        element.children[i].children[1].classList.add('hidden');
+      }
     }
+    })
   }
 
   triggerShift() {
@@ -293,33 +283,25 @@ class Keyboard {
   }
 
   checkShift() {
-    const curLang = this.lang === 'ru' ? 0 : 1;
     this.mod.forEach((element) => {
-      if (!this.isCapsOn) {
-        element.children[`${curLang}`]
-          .querySelector('.reg')
-          .classList.toggle('hidden');
-      }
-      if (this.isCapsOn) {
-        element.children[`${curLang}`]
-          .querySelector('.isCapsOn')
-          .classList.toggle('hidden');
-        /* eslint no-param-reassign: ["error", { "props": false }] */
-        let elInnerHTML = element.children[`${curLang}`].children[2].innerHTML;
-        if (elInnerHTML === elInnerHTML.toUpperCase()) {
-          // prettier-ignore
-          element.children[`${curLang}`].children[2].innerHTML = elInnerHTML.toLowerCase();
-          elInnerHTML = elInnerHTML.toLowerCase();
-        } else {
-          // prettier-ignore
-          element.children[`${curLang}`].children[2].innerHTML = elInnerHTML.toUpperCase();
-          elInnerHTML = elInnerHTML.toUpperCase();
+      for (let i = 0; i < 2; i += 1) {
+        element.children[i].children[0].classList.toggle('hidden');
+        element.children[i].children[2].classList.toggle('hidden');
+        if (this.isCapsOn) {
+          element.children[i].children[0].classList.toggle('hidden');
+          element.children[i].children[1].classList.toggle('hidden');
+          /* eslint no-param-reassign: ["error", { "props": false }] */
+          let elInnerHTML = element.children[i].children[2].innerHTML;
+          if (this.isShifted) {
+            element.children[i].children[2].innerHTML = elInnerHTML.toLowerCase();
+            elInnerHTML = elInnerHTML.toLowerCase();
+          } else {
+            element.children[i].children[2].innerHTML = elInnerHTML.toUpperCase();
+            elInnerHTML = elInnerHTML.toUpperCase();
+          }
         }
       }
-      element.children[`${curLang}`]
-        .querySelector('.isShifted')
-        .classList.toggle('hidden');
-    });
+    })
   }
 
   switchLang() {
@@ -328,15 +310,11 @@ class Keyboard {
 
     this.mod.forEach((element) => {
       element.children[`${curLang}`].classList.add('hidden');
-      for (let i = 0; i < 3; i += 1) {
-        element.children[`${curLang}`].children[i].classList.add('hidden');
-      }
       element.children[`${opLang}`].classList.remove('hidden');
     });
+
     this.lang = this.lang === 'en' ? 'ru' : 'en';
-    this.checkCaps(this.isCapsOn);
-    this.checkShift();
-  }
+   }
 
   checkLang(lng) {
     if (lng !== this.lang) {
