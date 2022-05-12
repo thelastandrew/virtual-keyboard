@@ -257,48 +257,57 @@ class Keyboard {
     });
   }
 
-  triggerCaps(keyEl) {
-    keyEl.classList.toggle('pressed');
+  capsOn() {
     this.isCapsOn = !this.isCapsOn;
-    this.checkCaps(this.isCapsOn);
-  }
-
-  checkCaps(isCaps) {
     this.mod.forEach((element) => {
       for (let i = 0; i < 2; i += 1) {
-      if (isCaps) {
         element.children[i].children[0].classList.add('hidden');
         element.children[i].children[1].classList.remove('hidden');
-      } else {
-        element.children[i].children[0].classList.remove('hidden');
-        element.children[i].children[1].classList.add('hidden');
-      }
     }
     })
   }
 
-  triggerShift() {
-    this.isShifted = !this.isShifted;
-    this.checkShift();
-  }
-
-  checkShift() {
+  capsOff() {
+    this.isCapsOn = !this.isCapsOn;
     this.mod.forEach((element) => {
       for (let i = 0; i < 2; i += 1) {
-        element.children[i].children[0].classList.toggle('hidden');
-        element.children[i].children[2].classList.toggle('hidden');
-        if (this.isCapsOn) {
-          element.children[i].children[0].classList.toggle('hidden');
-          element.children[i].children[1].classList.toggle('hidden');
+        element.children[i].children[0].classList.remove('hidden');
+        element.children[i].children[1].classList.add('hidden');
+    }
+    })
+  }
+
+  shiftOn() {
+    this.isShifted = !this.isShifted;
+    this.mod.forEach((element) => {
+      for (let i = 0; i < 2; i += 1) {
+        element.children[i].children[2].classList.remove('hidden');
+        if (!this.isCapsOn) {
+          element.children[i].children[0].classList.add('hidden'); 
+        } else {
+          element.children[i].children[1].classList.add('hidden');
           /* eslint no-param-reassign: ["error", { "props": false }] */
           let elInnerHTML = element.children[i].children[2].innerHTML;
-          if (this.isShifted) {
             element.children[i].children[2].innerHTML = elInnerHTML.toLowerCase();
             elInnerHTML = elInnerHTML.toLowerCase();
-          } else {
+        }
+      }
+    })
+  }
+
+  shiftOff() {
+    this.isShifted = !this.isShifted;
+    this.mod.forEach((element) => {
+      for (let i = 0; i < 2; i += 1) {
+        element.children[i].children[2].classList.add('hidden');
+        if (!this.isCapsOn) {
+          element.children[i].children[0].classList.remove('hidden'); 
+        } else {
+          element.children[i].children[1].classList.remove('hidden');
+          /* eslint no-param-reassign: ["error", { "props": false }] */
+          let elInnerHTML = element.children[i].children[2].innerHTML;
             element.children[i].children[2].innerHTML = elInnerHTML.toUpperCase();
             elInnerHTML = elInnerHTML.toUpperCase();
-          }
         }
       }
     })

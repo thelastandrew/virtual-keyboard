@@ -37,34 +37,59 @@ window.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('keydown', (e) => {
   myKeyboard.highLightKeys(e);
-  if (e.key === 'CapsLock') {
-    myKeyboard.triggerCaps(document.querySelector('.caps'));
-  }
   if (e.code === 'ShiftLeft') {
-    myKeyboard.triggerShift();
+    myKeyboard.shiftOn();
     if (e.altKey) {
       myKeyboard.switchLang();
     }
   }
   if (e.code === 'ShiftRight') {
-    myKeyboard.triggerShift();
+    myKeyboard.shiftOn();
   }
   if (e.code === 'AltLeft' && e.shiftKey) {
     myKeyboard.switchLang();
   }
   if (e.code === 'Tab') {
-    e.preventDefault();
     textarea.value += '    ';
+  }
+});
+
+window.addEventListener('keydown', function triggerCaps(e) {
+  if (e.key === 'CapsLock') {
+    if (myKeyboard.isCapsOn) {
+      myKeyboard.capsOff();
+      document.querySelector('.caps').classList.remove('pressed')
+      this.removeEventListener('keydown', triggerCaps);
+    } else {
+      myKeyboard.capsOn();
+      document.querySelector('.caps').classList.add('pressed')
+      this.removeEventListener('keydown', triggerCaps);
+    }
   }
 });
 
 window.addEventListener('keyup', (e) => {
   myKeyboard.lowLightKeys(e);
   if (e.code === 'ShiftLeft') {
-    myKeyboard.triggerShift();
+    myKeyboard.shiftOff();
   }
   if (e.code === 'ShiftRight') {
-    myKeyboard.triggerShift();
+    myKeyboard.shiftOff();
+  }
+  if (e.key === 'CapsLock') {
+    window.addEventListener('keydown', function triggerCaps(e) {
+      if (e.key === 'CapsLock') {
+        if (myKeyboard.isCapsOn) {
+          myKeyboard.capsOff();
+          document.querySelector('.caps').classList.remove('pressed');
+          this.removeEventListener('keydown', triggerCaps);
+        } else {
+          myKeyboard.capsOn();
+          document.querySelector('.caps').classList.add('pressed');
+          this.removeEventListener('keydown', triggerCaps);
+        }
+      }
+    });
   }
 });
 
