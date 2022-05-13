@@ -100,7 +100,13 @@ class Keyboard {
             keyElement.classList.add('icon-caps', 'med-wide', 'caps');
             keyElement.setAttribute('data-code', 'CapsLock');
             keyElement.addEventListener('click', () => {
-              this.triggerCaps(keyElement);
+              if (this.isCapsOn) {
+                this.capsOff();
+                keyElement.classList.remove('pressed');
+              } else {
+                keyElement.classList.add('pressed');
+                this.capsOn();
+              }
             });
             break;
           case 'enter':
@@ -112,10 +118,10 @@ class Keyboard {
             keyElement.setAttribute('data-code', 'ShiftLeft');
             keyElement.innerHTML = 'Shift';
             keyElement.addEventListener('mousedown', () => {
-              this.triggerShift();
+              this.shiftOn();
             });
             keyElement.addEventListener('mouseup', () => {
-              this.triggerShift();
+              this.shiftOff();
             });
             break;
           case 'shift-r':
@@ -123,10 +129,10 @@ class Keyboard {
             keyElement.setAttribute('data-code', 'ShiftRight');
             keyElement.innerHTML = 'Shift';
             keyElement.addEventListener('mousedown', () => {
-              this.triggerShift();
+              this.shiftOn();
             });
             keyElement.addEventListener('mouseup', () => {
-              this.triggerShift();
+              this.shiftOff();
             });
             break;
           case 'ctrl-l':
