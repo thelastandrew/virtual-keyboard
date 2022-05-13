@@ -10,7 +10,7 @@ document.body.append(main);
 const p1 = document.createElement('p');
 p1.innerHTML = 'Клавиатура создана в операционной системе Windows';
 const p2 = document.createElement('p');
-p2.innerHTML = 'Перечлючение языка LeftShift+LeftAlt';
+p2.innerHTML = 'Переключение языка LeftShift+LeftAlt';
 
 const textarea = myTextarea.init();
 
