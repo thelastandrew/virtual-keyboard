@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'keyboard-icons';
+  src: url('../fonts/keyboard-icons.eot?486zzb');
+  src: url('../fonts/keyboard-icons.eot?486zzb#iefix')
+      format('embedded-opentype'),
+    url('../fonts/keyboard-icons.ttf?486zzb') format('truetype'),
+    url('../fonts/keyboard-icons.woff?486zzb') format('woff'),
+    url('../fonts/keyboard-icons.svg?486zzb#keyboard-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'keyboard-icons' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-down:before {
+  content: '\e900';
+}
+.icon-up:before {
+  content: '\e901';
+}
+.icon-left:before {
+  content: '\e902';
+}
+.icon-right:before {
+  content: '\e903';
+}
+.icon-backspace:before {
+  content: '\e904';
+}
+.icon-caps:before {
+  content: '\e905';
+}
+.icon-return:before {
+  content: '\e906';
+}
+.icon-tab:before {
+  content: '\e907';
+}
+.icon-space:before {
+  content: '\e908';
+}
