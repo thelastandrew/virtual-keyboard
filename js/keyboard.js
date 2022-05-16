@@ -269,8 +269,8 @@ class Keyboard {
       for (let i = 0; i < 2; i += 1) {
         element.children[i].children[0].classList.add('hidden');
         element.children[i].children[1].classList.remove('hidden');
-    }
-    })
+      }
+    });
   }
 
   capsOff() {
@@ -279,8 +279,8 @@ class Keyboard {
       for (let i = 0; i < 2; i += 1) {
         element.children[i].children[0].classList.remove('hidden');
         element.children[i].children[1].classList.add('hidden');
-    }
-    })
+      }
+    });
   }
 
   shiftOn() {
@@ -289,16 +289,16 @@ class Keyboard {
       for (let i = 0; i < 2; i += 1) {
         element.children[i].children[2].classList.remove('hidden');
         if (!this.isCapsOn) {
-          element.children[i].children[0].classList.add('hidden'); 
+          element.children[i].children[0].classList.add('hidden');
         } else {
           element.children[i].children[1].classList.add('hidden');
           /* eslint no-param-reassign: ["error", { "props": false }] */
           let elInnerHTML = element.children[i].children[2].innerHTML;
-            element.children[i].children[2].innerHTML = elInnerHTML.toLowerCase();
-            elInnerHTML = elInnerHTML.toLowerCase();
+          element.children[i].children[2].innerHTML = elInnerHTML.toLowerCase();
+          elInnerHTML = elInnerHTML.toLowerCase();
         }
       }
-    })
+    });
   }
 
   shiftOff() {
@@ -307,16 +307,16 @@ class Keyboard {
       for (let i = 0; i < 2; i += 1) {
         element.children[i].children[2].classList.add('hidden');
         if (!this.isCapsOn) {
-          element.children[i].children[0].classList.remove('hidden'); 
+          element.children[i].children[0].classList.remove('hidden');
         } else {
           element.children[i].children[1].classList.remove('hidden');
           /* eslint no-param-reassign: ["error", { "props": false }] */
           let elInnerHTML = element.children[i].children[2].innerHTML;
-            element.children[i].children[2].innerHTML = elInnerHTML.toUpperCase();
-            elInnerHTML = elInnerHTML.toUpperCase();
+          element.children[i].children[2].innerHTML = elInnerHTML.toUpperCase();
+          elInnerHTML = elInnerHTML.toUpperCase();
         }
       }
-    })
+    });
   }
 
   switchLang() {
@@ -329,7 +329,7 @@ class Keyboard {
     });
 
     this.lang = this.lang === 'en' ? 'ru' : 'en';
-   }
+  }
 
   checkLang(lng) {
     if (lng !== this.lang) {

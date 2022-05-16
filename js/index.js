@@ -58,11 +58,11 @@ window.addEventListener('keydown', function triggerCaps(e) {
   if (e.key === 'CapsLock') {
     if (myKeyboard.isCapsOn) {
       myKeyboard.capsOff();
-      document.querySelector('.caps').classList.remove('pressed')
+      document.querySelector('.caps').classList.remove('pressed');
       this.removeEventListener('keydown', triggerCaps);
     } else {
       myKeyboard.capsOn();
-      document.querySelector('.caps').classList.add('pressed')
+      document.querySelector('.caps').classList.add('pressed');
       this.removeEventListener('keydown', triggerCaps);
     }
   }
@@ -77,8 +77,8 @@ window.addEventListener('keyup', (e) => {
     myKeyboard.shiftOff();
   }
   if (e.key === 'CapsLock') {
-    window.addEventListener('keydown', function triggerCaps(e) {
-      if (e.key === 'CapsLock') {
+    window.addEventListener('keydown', function triggerCaps(ev) {
+      if (ev.key === 'CapsLock') {
         if (myKeyboard.isCapsOn) {
           myKeyboard.capsOff();
           document.querySelector('.caps').classList.remove('pressed');
